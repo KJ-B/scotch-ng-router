@@ -1,13 +1,13 @@
 // Imports
-import { Injectable }    from '@angular/core';
-import { Jsonp, URLSearchParams } from '@angular/http';
-import { Pet } from './pet'
-import 'rxjs/add/operator/map';
+import { Injectable }    from '@angular/core'; //imports Injectable to create its own injectable property in ln 11
+import { Jsonp, URLSearchParams } from '@angular/http'; //BBWS project 
+import { Pet } from './pet'; //model resides here
+import 'rxjs/add/operator/map';//map method tries to map the method based on the method what pieces of data is needed.
 
 /* @Injectable: tells Angular that this class is injectable as a
 service to another class.
  */
-@Injectable()
+@Injectable() //something that's injectable will be available with xx.injectable property
 export class PetService {
   /* This class constructor also has JSONP injected. Note that
   // you don't have to inject JSONP as it is 'built into'
@@ -35,7 +35,7 @@ export class PetService {
     params.set('key', '555f8155d42d5c9be4705beaf4cce089');
     params.set('location', 'ontario');
     params.set('animal', animal);
-    params.set('format', 'json');
+    params.set('format', 'json');//can also be sourced in xml--try!
     params.set('callback', 'JSONP_CALLBACK');
     // Return response. note it is similar to a promise
     /* the original return statement is broken down into
@@ -61,24 +61,25 @@ export class PetService {
 
     // ES6 long form
     let responseFn_2 = (response) => {
-      let originalData = response.json();
+      let originalData = response.json();  //'as <Pet[]>' other way of stating
       // console.log(originalData); // returns an object like best buy
       let petFinderResults = originalData['petfinder']; // or .petfinder. its an object
       let petData = petFinderResults.pets;
       let refinedData:Pet[] = petData.pet; // like products from best buy
       console.log(refinedData);
       // the return statement shows an example of "casting"
-      return <Pet[]> refinedData;
+      return <Pet[]> refinedData;//this method creates the map instead of giving the location in one line.
     };
 
     // ES6 short form
-    // let responseFn = (response) => (<Pet[]> response.json().petfinder.pets.pet);
+    // let responseFn = (response) => (<Pet[]> response.json().petfinder.pets.pet); --follow the bouncing ball.  The data is
+    //cast as an array of pet objects.  Force the data to become an array--parse it through a filter.
 
-    let processRequest = request.map(responseFn_2);
+    let processRequest = request.map(responseFn_2); //map the data out.  The function makes the data understandable.
     return processRequest;
   }
 
-  findPetById(id: string){
+  findPetById(id: string){//pairs original file with name to the search bar line 33 in cat-details.components.ts
     // End point for list of pets:
     // http://api.petfinder.com/pet.find?key=[API_KEY]&animal=[ANIMAL]&format=json&location=texas
     const endPoint = 'pet.get'

@@ -15,7 +15,7 @@ import { Pet } from '../pet';
       <li class="mdl-list__item" *ngFor="let cat of cats | async">
         <span class="mdl-list__item-primary-content">
             <i class="material-icons mdl-list__item-icon">pets</i>
-            <a [routerLink]="['/cats', cat.id.$t]">{{cat.name.$t}}</a>
+            <a [routerLink]="['/cats', cat.id.$t]">{{cat.name.$t}}</a>// $t is the property inside the name that gives you the value.
         </span>
       </li>
     </ul>
@@ -30,7 +30,7 @@ export class CatListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cats = this.petService.findPets('cat');
+    this.cats = this.petService.findPets('cat'); //cat-detail.components = petService to findPets being 'cat'.
   }
 
 }

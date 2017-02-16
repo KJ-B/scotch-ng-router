@@ -19,7 +19,7 @@ import { ActivatedRoute } from '@angular/router';
 // Component class implementing OnInit
 export class CatDetailsComponent implements OnInit {
   // Private properties for binding
-  private sub:any;
+  private sub:any;  //var fred (i.e "anything")
   private cat:string[];
 
   constructor(private petService: PetService, private route: ActivatedRoute) {
@@ -29,8 +29,8 @@ export class CatDetailsComponent implements OnInit {
   // Load data ones componet is ready
   ngOnInit() {
       // Subscribe to route params
-      this.sub = this.route.params.subscribe(params => {
-        let id = params['id'];
+      this.sub = this.route.params.subscribe(params => {//enables to read the info in the address bar
+        let id = params['id'];//this the list that you want to look for. id pairs the search name with the address bar. line82 cat-list.component.ts
        // Retrieve Pet with Id route param
         this.petService.findPetById(id).subscribe(cat => this.cat = cat);
     });
